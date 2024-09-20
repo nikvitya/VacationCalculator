@@ -58,4 +58,4 @@ docker-compose up
 вы можете с помощью программы [Postman](https://www.postman.com/downloads/)
 * Для этого необходимо:
 1. File -> Import:
-2. Запустите коллекция, нажав "Run".
+2. Запустите коллекцию, нажав "Run".
