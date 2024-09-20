@@ -17,12 +17,14 @@ GET "/calculacte"
 Желательно написание юнит-тестов, проверяющих расчет.
 
 # Как запустить и использовать
-Для запуска установите и откройте программу [Docker Desktop](https://www.docker.com/products/docker-desktop/).
-Склоинруйте репозиторий в IntelliJ Idea
+* Для запуска установите и откройте программу [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+* Склоинруйте репозиторий в IntelliJ Idea
 ```shell
 #URL
 git clone https://github.com/nikvitya/VacationCalculator.git
-
+```
+* Далее
+```
 mvn clean package
 docker-compose up
    ```
