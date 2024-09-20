@@ -1,0 +1,742 @@
+{
+	"info": {
+		"_postman_id": "7e2630fb-a505-4b59-b90b-05c830f2b4d1",
+		"name": "VacationPayCalculator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26757288"
+	},
+	"item": [
+		{
+			"name": "get vacation pay",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Проверка отпускных при наличии общего количества дней отпускных\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.vacationPay).to.eql(47781.44);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=50000.00&vacationDays=28",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "50000.00"
+						},
+						{
+							"key": "vacationDays",
+							"value": "28"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "with Exact List Only Holidays",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Проверка, когда только выходные и праздничные дни\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.vacationPay).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=50000.00&vacationDays=28&exactVacationDates= 2024-01-01,2024-01-02,2024-01-21",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "50000.00"
+						},
+						{
+							"key": "vacationDays",
+							"value": "28"
+						},
+						{
+							"key": "exactVacationDates",
+							"value": " 2024-01-01,2024-01-02,2024-01-21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "with Exact List Not Only Holidays",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Проверка, когда 1 рабочий день\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.vacationPay).to.eql(1706.48);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=50000.00&vacationDays=28&exactVacationDates= 2024-01-01,2024-01-02,2024-01-23",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "50000.00"
+						},
+						{
+							"key": "vacationDays",
+							"value": "28"
+						},
+						{
+							"key": "exactVacationDates",
+							"value": " 2024-01-01,2024-01-02,2024-01-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "no average salary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Проверка входных параметров. Не указана средняя зарплата\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Необходимо указать среднюю зарплату\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?vacationDays=28&exactVacationDates= 2024-01-01,2024-01-02,2024-01-23",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "vacationDays",
+							"value": "28"
+						},
+						{
+							"key": "exactVacationDates",
+							"value": " 2024-01-01,2024-01-02,2024-01-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "negative average salary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Средняя зарплата недолжна быть отрицательной\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Средняя зарплата недолжна быть отрицательной\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=-50000.00&vacationDays=28",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "-50000.00"
+						},
+						{
+							"key": "vacationDays",
+							"value": "28"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "no vacation days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Необходимо указать кол-во отпускных дней\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Необходимо указать кол-во отпускных дней\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=50000.00&exactVacationDates=2024-01-01,2024-01-02,2024-01-23",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "50000.00"
+						},
+						{
+							"key": "exactVacationDates",
+							"value": "2024-01-01,2024-01-02,2024-01-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "negative vacation days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Кол-во отпускных дней не может быть отрицательным\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Кол-во отпускных дней не может быть отрицательным\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/calculate?averageSalary=50000.00&vacationDays=-28",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"calculate"
+					],
+					"query": [
+						{
+							"key": "averageSalary",
+							"value": "50000.00"
+						},
+						{
+							"key": "vacationDays",
+							"value": "-28"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"API = class {",
+					"    constructor(postman, verbose = false, baseUrl = \"http://localhost:8080\") {",
+					"        this.baseUrl = baseUrl;",
+					"        this.pm = postman;",
+					"        this._verbose = verbose;",
+					"    }",
+					"",
+					"    async addUser(user, verbose=null) {",
+					"        return this.post(\"/users\", user, \"Ошибка при добавлении нового пользователя: \", verbose);",
+					"    }",
+					"",
+					"    async addFilm(film, verbose=null) {",
+					"        return this.post(\"/films\", film, \"Ошибка при добавлении нового фильма: \", verbose);",
+					"    }",
+					"",
+					"    async addFriend(userId, friendId, verbose=null) {",
+					"        return this.put(\"/users/\" + userId + '/friends/' + friendId, null, \"Ошибка при добавлении нового фильма: \", verbose);",
+					"    }",
+					"",
+					"    async addLike(filmId, userId, verbose=null) {",
+					"        return this.put(\"/films/\" + filmId + '/like/' + userId, null, \"Ошибка при добавлении лайка на фильм: \", verbose);",
+					"    }",
+					"",
+					"    async getFriends(userId, verbose=null) {",
+					"        return this.get('/users/' + userId + '/friends', null, \"Ошибка при поиске друзей по id пользователя\", verbose);",
+					"    }",
+					"",
+					"    async post(path, body, errorText = \"Ошибка при выполнении post-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"POST\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async patch(path, body = null, errorText = \"Ошибка при выполнении patch-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PATCH\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async get(path, body = null, errorText = \"Ошибка при выполнении get-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"GET\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async put(path, body = null, errorText = \"Ошибка при выполнении put-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PUT\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async sendRequest(method, path, body=null, errorText = \"Ошибка при выполнении запроса: \", verbose=null) {",
+					"        return new Promise((resolve, reject) => {",
+					"            verbose = verbose == null ? this._verbose : verbose;",
+					"            const request = {",
+					"                url: this.baseUrl + path,",
+					"                method: method,",
+					"                body: body == null ? \"\" : JSON.stringify(body),",
+					"                header: { \"Content-Type\": \"application/json\" },",
+					"            };",
+					"            if(verbose) {",
+					"                console.log(\"Отправляю запрос: \", request);",
+					"            }",
+					"",
+					"            try {",
+					"                this.pm.sendRequest(request, (error, response) => {",
+					"                    if(error || (response.code >= 400 && response.code <= 599)) {",
+					"                        let err = error ? error : JSON.stringify(response.json());",
+					"                        console.error(\"При выполнении запроса к серверу возникла ошика.\\n\", err,",
+					"                             \"\\nДля отладки проблемы повторите такой же запрос к вашей программе \" + ",
+					"                             \"на локальном компьютере. Данные запроса:\\n\", JSON.stringify(request));",
+					"",
+					"                        reject(new Error(errorText + err));",
+					"                    }",
+					"                    if(verbose) {",
+					"                        console.log(\"Результат обработки запроса: код состояния - \", response.code, \", тело: \", response.json());",
+					"                    }",
+					"                    if (response.stream.length === 0){",
+					"                        resolve(null);",
+					"                    }else{",
+					"                        resolve(response.json());",
+					"                    }",
+					"                });",
+					"                ",
+					"            } catch(err) {",
+					"                if(verbose) {",
+					"                    console.error(errorText, err);",
+					"                }",
+					"                return Promise.reject(err);",
+					"            }",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"RandomUtils = class {",
+					"    constructor() {}",
+					"",
+					"    getUser() {",
+					"        let date = new Date(new Date(1960, 0, 1).getTime() + Math.random() * (new Date(2010, 0, 1).getTime() - new Date(1960, 0, 1).getTime()));",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomFullName}}'),",
+					"            login: this.getWord(10),",
+					"            email: pm.variables.replaceIn('{{$randomEmail}}'),",
+					"            birthday: date.toISOString().slice(0,10)",
+					"        };",
+					"    }",
+					"",
+					"    getFilm() {",
+					"        let date = new Date(new Date(1960, 0, 1).getTime() + Math.random() * (new Date(2010, 0, 1).getTime() - new Date(1960, 0, 1).getTime()));",
+					"        return {",
+					"            name: this.getWord(15),",
+					"            description: this.getWord(50),",
+					"            releaseDate: date.toISOString().slice(0,10),",
+					"            duration: Math.floor(Math.random() * (180 - 60 + 1) + 60)",
+					"        };",
+					"    }",
+					"",
+					"    getWord(length = 1) {",
+					"        let result = '';",
+					"        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';",
+					"        const charactersLength = characters.length;",
+					"        let counter = 0;",
+					"        while (counter < length) {",
+					"            result += characters.charAt(Math.floor(Math.random() * charactersLength));",
+					"            counter += 1;",
+					"        }",
+					"        return result;",
+					"    }",
+					"",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "0"
+		},
+		{
+			"key": "friend_id",
+			"value": "0"
+		},
+		{
+			"key": "user_friends",
+			"value": ""
+		},
+		{
+			"key": "is",
+			"value": ""
+		},
+		{
+			"key": "user3_id",
+			"value": ""
+		},
+		{
+			"key": "film1_id",
+			"value": ""
+		},
+		{
+			"key": "film2_id",
+			"value": ""
+		},
+		{
+			"key": "film3_id",
+			"value": ""
+		},
+		{
+			"key": "film_id",
+			"value": ""
+		},
+		{
+			"key": "user",
+			"value": ""
+		},
+		{
+			"key": "film",
+			"value": ""
+		}
+	]
+}
